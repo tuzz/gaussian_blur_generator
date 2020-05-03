@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+LIB = File.expand_path(File.join(__dir__, "..", "lib"))
+$LOAD_PATH.unshift(LIB)
+
+EPSILON = Float(ARGV[0] || 0.05)
+
+require "gaussian_blur_generator"
+require "fileutils"
+
+FileUtils.mkdir_p("output/blur/x")
+FileUtils.mkdir_p("output/blur/y")
+
+GaussianBlurGenerator.generate(EPSILON) do |values|
+  ["x", "y"].each do |axis|
+    glsl = GaussianBlurGenerator.glsl(values, axis)
+    path = "output/blur/#{axis}/#{values.texture_reads}.frag"
+
+    File.write(path, glsl)
+  end
+
+  puts "Written output/blur/{x,y}/#{values.texture_reads}.frag"
+  puts "  discarded values < #{EPSILON} of peak"
+  puts "  number of texture reads = #{values.texture_reads}"
+  puts "  effective kernel size = #{values.effective_size}"
+  puts "  pascal's triangle row = #{values.row_number}"
+  puts
+end
