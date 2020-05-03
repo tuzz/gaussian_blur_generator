@@ -10,22 +10,27 @@ Normally, a blur shader would require N^2 texture reads for a kernel of size N.
 By splitting the shader in two (horizontal, then vertical) and applying a linear
 sampling technique, we can reduce the number of texture reads to approximately
 N, vastly improving the performance of a Gaussian blur. This can be reduced even
-further by ignoring values at the edges of kernels that virtually no difference
+further by ignoring values at the edges of kernels that hardly make a difference
 to the output image.
 
 ### What is this gem?
 
 This gem applies the technique from the article but generates many different
-shaders with different kernel sizes. It writes these shaders to files in the
+shaders with varying sample sizes. It writes these shaders to files in the
 output directory, for example:
 
 - [output/blur/x/17.frag](output/blur/x/17.frag)
-- [output/blue/y/17.frag](output/blue/y/17.frag)
+- [output/blur/y/17.frag](output/blur/y/17.frag)
+
+These shaders sample the texture image 17 times per pixel. They are equivalent
+to a Gaussian blur kernel of size 33 (2N - 1). The largest pre-compiled shader
+samples 137 times which is equivalent to a Gaussiain blur of size 273. I could
+have generated more but my laptop ran out of RAM after ~12 hours.
 
 You can run `./bin/generate` yourself by cloning the repository or use one of
 the pre-generated shaders in the [`output/blur`](output/blur) directory. These
-have generated with an epsilon value of 0.05 which roughly corresponds to the
-article, but you can set this yourself if you'd like:
+have been generated with an epsilon value of 0.05 which roughly corresponds to
+the article, but you can set this yourself if you'd like:
 
 ```sh
 $ ./bin/generate 0.07
