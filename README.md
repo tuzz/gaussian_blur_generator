@@ -24,7 +24,7 @@ output directory, for example:
 
 These shaders sample the texture image 17 times per pixel. They are equivalent
 to a Gaussian blur kernel of size 33 (2N - 1). The largest pre-compiled shader
-samples 137 times which is equivalent to a Gaussiain blur of size 273. I could
+samples 129 times which is equivalent to a Gaussiain blur of size 257. I could
 have generated more but my laptop ran out of RAM after ~12 hours.
 
 You can run `./bin/generate` yourself by cloning the repository or use one of
@@ -43,7 +43,7 @@ This would set the threshold a little higher than the default 0.05.
 1. Copy the x and y fragment shaders into your project for the kernel size you want.
 2. Compile a shader program for each of the fragment shaders
 3. Set `u_texture` to the input texture you want to blur
-4. Set `u_dimensions` to the pixel size of the output: `[width, height, 1/width, 1/height]`
+4. Set `u_scaling` base on the pixel size of the output: `[1/width, 1/height, width/height, height/width]`
 5. Draw your scene to a framebuffer/texture instead of directly to the screen
 6. Apply the first shader program, then draw to the screen with the second
 

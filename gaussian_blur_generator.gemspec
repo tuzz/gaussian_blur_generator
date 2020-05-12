@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "gaussian_blur_generator"
-  s.version     = "1.0.0"
+  s.version     = "1.1.0"
   s.licenses    = ["MIT"]
   s.summary     = "Gaussian Blur Generator"
   s.description = "Generates fragment shaders that apply a Gaussian blur in an efficient manner."
