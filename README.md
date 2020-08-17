@@ -42,8 +42,8 @@ This would set the threshold a little higher than the default 0.05.
 
 1. Copy the x and y fragment shaders into your project for the kernel size you want.
 2. Compile a shader program for each of the fragment shaders
-3. Set `u_texture` to the input texture you want to blur
-4. Set `u_scaling` base on the pixel size of the output: `[1/width, 1/height, width/height, height/width]`
+3. Set `t_input` to the input texture you want to blur
+4. Set `u_scaling` based on the pixel size of the output: `[1/width, 1/height, width/height, height/width]`
 5. Draw your scene to a framebuffer/texture instead of directly to the screen
 6. Apply the first shader program, then draw to the screen with the second
 
@@ -52,7 +52,11 @@ simplest approach is to apply it to a full-screen quad. In which case, a simple
 vertex shader like this one will suffice:
 
 ```glsl
-attribute vec4 a_position;
+#version 310 es
+
+precision mediump float;
+
+layout(location=0) in vec4 a_position;
 
 void main() {
   gl_Position = a_position;
