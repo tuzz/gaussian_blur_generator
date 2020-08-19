@@ -24,7 +24,7 @@ output directory, for example:
 
 These shaders sample the texture image 17 times per pixel. They are equivalent
 to a Gaussian blur kernel of size 33 (2N - 1). The largest pre-compiled shader
-samples 129 times which is equivalent to a Gaussiain blur of size 257. I could
+samples 137 times which is equivalent to a Gaussiain blur of size 273. I could
 have generated more but my laptop ran out of RAM after ~12 hours.
 
 You can run `./bin/generate` yourself by cloning the repository or use one of
